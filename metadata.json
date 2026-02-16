@@ -1,0 +1,5 @@
+{
+  "name": "Cybernotes",
+  "description": "A smart, AI-powered note taking application that helps you write, summarize, and organize your thoughts using Google's Gemini API.",
+  "requestFramePermissions": []
+}
