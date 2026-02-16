@@ -125,7 +125,8 @@ const App: React.FC = () => {
         {activeNote ? (
           <Editor 
             note={activeNote} 
-            onUpdate={handleUpdateNote} 
+            onUpdate={handleUpdateNote}
+            onCreate={handleCreateNote} 
           />
         ) : (
           <div className="h-full flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">

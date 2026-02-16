@@ -10,15 +10,17 @@ import {
   Hash, 
   AlignLeft,
   PenLine,
-  X
+  X,
+  Plus
 } from 'lucide-react';
 
 interface EditorProps {
   note: Note;
   onUpdate: (updatedNote: Note) => void;
+  onCreate: () => void;
 }
 
-export const Editor: React.FC<EditorProps> = ({ note, onUpdate }) => {
+export const Editor: React.FC<EditorProps> = ({ note, onUpdate, onCreate }) => {
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
   const [aiState, setAiState] = useState<AIState>({
@@ -142,7 +144,7 @@ export const Editor: React.FC<EditorProps> = ({ note, onUpdate }) => {
   return (
     <div className="flex flex-col h-full bg-white relative">
       {/* Top Bar */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-white z-10">
+      <div className="flex items-center justify-between pl-16 pr-4 py-4 md:px-6 border-b border-slate-100 bg-white z-10">
         <div className="flex-1 mr-4">
           <input
             type="text"
@@ -165,16 +167,28 @@ export const Editor: React.FC<EditorProps> = ({ note, onUpdate }) => {
         </div>
         
         <div className="flex items-center gap-2 relative" ref={menuRef}>
-          <span className="text-xs text-slate-400 mr-2">
+          <span className="text-xs text-slate-400 mr-2 hidden sm:inline">
               {aiState.isGenerating ? 'AI Thinking...' : 'Saved'}
           </span>
+
+          <Button 
+            variant="primary"
+            onClick={onCreate}
+            className="mr-2"
+            title="Create new note"
+          >
+             <Plus size={16} className="sm:mr-2" />
+             <span className="hidden sm:inline">New Note</span>
+          </Button>
+
           <Button 
             variant="secondary"
             onClick={() => setShowAiMenu(!showAiMenu)}
             isLoading={aiState.isGenerating}
             icon={<Sparkles size={16} className="text-indigo-600" />}
           >
-            AI Tools
+            <span className="hidden sm:inline">AI Tools</span>
+            <span className="sm:hidden">AI</span>
           </Button>
 
           {showAiMenu && (
